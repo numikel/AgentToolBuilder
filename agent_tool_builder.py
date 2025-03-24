@@ -32,7 +32,7 @@ class AgentToolBuilder():
             parameters = json.dumps(parameters, indent=2)
         return parameters
     
-    def add_new_property(self, prop_name, prop_type, prop_description, prop_enum=None):
+    def add_new_property(self, prop_name, prop_type, prop_description, prop_enum=None, prop_default=None, prop_example=None):
         if prop_type not in ["string", "integer", "number", "boolean", "array", "object"]:
             raise ValueError(f"Invalid prop_type: {prop_type}")
 
@@ -42,6 +42,10 @@ class AgentToolBuilder():
         }
         if prop_enum is not None:
             prop["enum"] = prop_enum
+        if prop_default is not None:
+            prop["default"] = prop_default
+        if prop_example is not None:
+            prop["example"] = prop_example
         self.properties_list.append({prop_name: prop})
         return self
 
