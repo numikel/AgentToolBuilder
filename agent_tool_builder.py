@@ -1,7 +1,7 @@
 import json
 
 class AgentToolBuilder():
-    def __init__(self, tool_name, tool_type, tool_description, parameters = None, properties_list = None):
+    def __init__(self, tool_name: str, tool_type: str, tool_description: str, parameters: object = None, properties_list: list[object] = None):
         self.name = tool_name
         self.type = tool_type
         self.description = tool_description
@@ -11,7 +11,7 @@ class AgentToolBuilder():
     def __repr__(self):
         return f"<AgentToolBuilder name={self.name} type={self.type}>"
 
-    def build(self, return_json = False):
+    def build(self, return_json: bool = False):
         configuration = {
             "type": self.type,
             "name": self.name,
@@ -22,7 +22,7 @@ class AgentToolBuilder():
             configuration = json.dumps(configuration, indent=2)
         return configuration
     
-    def get_tool_parameters(self, return_json = False):
+    def get_tool_parameters(self, return_json: bool = False):
         parameters = {
             "type": "object",
             "properties": {k: v for d in self.properties_list for k, v in d.items()},
@@ -32,7 +32,7 @@ class AgentToolBuilder():
             parameters = json.dumps(parameters, indent=2)
         return parameters
     
-    def add_new_property(self, prop_name, prop_type, prop_description, prop_enum=None, prop_default=None, prop_example=None):
+    def add_new_property(self, prop_name: str, prop_type: str, prop_description: str, prop_enum: list[str]=None, prop_default=None, prop_example=None):
         if prop_type not in ["string", "integer", "number", "boolean", "array", "object"]:
             raise ValueError(f"Invalid prop_type: {prop_type}")
 
